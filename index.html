@@ -264,28 +264,102 @@
     }
     .anuncio-card p { font-size: 13px; color: var(--suave); line-height: 1.55; }
 
+    /* ── SLOT SELECTOR ── */
+    .slot-section {
+      margin-bottom: 24px;
+      max-width: 460px;
+    }
+    .slot-section__label {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--texto);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+    .slot-section__label span { color: var(--violeta-lt); }
+    .slot-list {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .slot-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,255,255,0.10);
+      border-radius: 12px;
+      padding: 14px 20px;
+      font-size: 15px; font-weight: 600;
+      color: rgba(248,250,252,0.75);
+      cursor: pointer;
+      transition: border-color .18s, background .18s, color .18s, transform .12s;
+      user-select: none;
+    }
+    .slot-btn:hover {
+      border-color: rgba(167,139,250,0.45);
+      background: rgba(101,31,255,0.10);
+      color: #fff;
+    }
+    .slot-btn.active {
+      border-color: var(--violeta-lt);
+      background: rgba(101,31,255,0.18);
+      color: #fff;
+      font-weight: 700;
+    }
+    .slot-btn .slot-dot {
+      width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,0.25);
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .18s, background .18s;
+    }
+    .slot-btn.active .slot-dot {
+      border-color: var(--violeta-lt);
+      background: var(--violeta-lt);
+    }
+    .slot-btn.active .slot-dot::after {
+      content: '';
+      display: block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #fff;
+    }
+    .slot-error {
+      font-size: 12px; font-weight: 600;
+      color: var(--rosa);
+      margin-top: 8px;
+      display: none;
+    }
+    .slot-section.shake .slot-list { animation: shake .4s ease; }
+    @keyframes shake {
+      0%,100%{ transform:translateX(0); }
+      20%{ transform:translateX(-6px); }
+      40%{ transform:translateX(6px); }
+      60%{ transform:translateX(-4px); }
+      80%{ transform:translateX(4px); }
+    }
+
     /* CTA */
     .anuncio-cta-wrap {
       display: flex; flex-direction: column; align-items: center; gap: 10px;
+      width: 100%; max-width: 460px;
     }
     .btn-wa-vsl {
       display: inline-flex; align-items: center; justify-content: center;
       gap: 10px;
       background: var(--wa);
       color: #fff;
-      font-size: clamp(14px, 2vw, 16px);
+      font-size: clamp(15px, 2vw, 17px);
       font-weight: 800;
       text-decoration: none;
       border-radius: 999px;
       padding: 18px 28px;
       width: 100%;
-      max-width: 520px;
       box-shadow: 0 8px 32px rgba(37,211,102,0.35);
-      transition: transform .15s, box-shadow .15s;
+      transition: transform .15s, box-shadow .15s, opacity .2s;
       text-align: center;
-      line-height: 1.3;
+      opacity: .55; /* apagado hasta seleccionar horario */
     }
-    .btn-wa-vsl:hover {
+    .btn-wa-vsl.ready {
+      opacity: 1;
+    }
+    .btn-wa-vsl.ready:hover {
       transform: translateY(-2px);
       box-shadow: 0 12px 40px rgba(37,211,102,0.50);
     }
@@ -344,14 +418,14 @@
 
       <div class="anuncio-tag">
         <span class="dot-cian"></span>
-        ¿En qué consiste?
+        Siguiente paso
       </div>
 
       <h2 class="anuncio-titulo">
-        Una videollamada gratuita de <span>50 minutos</span><br>con un especialista educativo
+        Tu videollamada gratuita de <span>50 minutos</span><br>con un especialista de Evolucione
       </h2>
       <p class="anuncio-sub">
-        Sin compromiso. El especialista analiza la situación de tu hijo y te dice con honestidad si el programa es lo que necesita.
+        Sin costo, sin compromiso. En esa llamada entendemos la situación de tu hijo y te decimos con honestidad si el programa le va a funcionar.
       </p>
 
       <div class="anuncio-cards">
@@ -362,8 +436,8 @@
               <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
             </svg>
           </div>
-          <h3>Evaluamos el perfil de tu hijo</h3>
-          <p>Nivel de lectura, hábitos de estudio y las dificultades concretas que enfrenta hoy.</p>
+          <h3>Analizamos a tu hijo</h3>
+          <p>Te preguntamos sobre su nivel, sus hábitos y los problemas concretos que enfrenta al estudiar hoy.</p>
         </div>
 
         <div class="anuncio-card">
@@ -372,8 +446,8 @@
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
             </svg>
           </div>
-          <h3>Te decimos si el programa es para él</h3>
-          <p>Sin rodeos. Si el perfil no encaja, te lo decimos antes de que tomes cualquier decisión.</p>
+          <h3>Te decimos la verdad</h3>
+          <p>Si Evolucione no es lo que tu hijo necesita, te lo decimos directo. Sin rodeos ni presión de venta.</p>
         </div>
 
         <div class="anuncio-card">
@@ -382,20 +456,40 @@
               <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
             </svg>
           </div>
-          <h3>Agendamos la videollamada de inicio</h3>
-          <p>Si el programa es el indicado, coordinamos directamente en esa misma llamada.</p>
+          <h3>Coordinamos el inicio</h3>
+          <p>Si es el programa correcto, definimos fecha, horario y todo lo necesario para empezar.</p>
         </div>
 
       </div>
 
+      <!-- SELECTOR DE HORARIO -->
+      <div class="slot-section" id="slot-section">
+        <p class="slot-section__label">¿En qué horario te <span>viene mejor</span> hablar con nosotros?</p>
+        <div class="slot-list">
+          <button class="slot-btn" onclick="selectSlot('10:00 am – 1:00 pm', this)">
+            <span class="slot-dot"></span>
+            10:00 am – 1:00 pm
+          </button>
+          <button class="slot-btn" onclick="selectSlot('1:00 pm – 4:00 pm', this)">
+            <span class="slot-dot"></span>
+            1:00 pm – 4:00 pm
+          </button>
+          <button class="slot-btn" onclick="selectSlot('4:00 pm – 7:00 pm', this)">
+            <span class="slot-dot"></span>
+            4:00 pm – 7:00 pm
+          </button>
+        </div>
+        <p class="slot-error" id="slot-error">Elige un horario para continuar</p>
+      </div>
+
       <div class="anuncio-cta-wrap">
-        <a class="btn-wa-vsl"
-           href="https://wa.me/523311471448?text=Quiero+agendar+mi+videollamada+gratuita+de+50+minutos+con+un+especialista+educativo+de+Evolucione"
+        <a class="btn-wa-vsl" id="wa-btn"
+           href="#"
            target="_blank" rel="noopener">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
           </svg>
-          Quiero agendar mi videollamada gratuita de 50 minutos con un especialista educativo
+          Agendar Videollamada
         </a>
         <div class="anuncio-trust">
           <span>
@@ -513,6 +607,44 @@
         });
       });
     }
+
+    /* ── Selector de horario ── */
+    var selectedSlot = '';
+
+    function selectSlot(slot, el) {
+      selectedSlot = slot;
+
+      document.querySelectorAll('.slot-btn').forEach(function(b) {
+        b.classList.remove('active');
+      });
+      el.classList.add('active');
+
+      document.getElementById('slot-error').style.display = 'none';
+      document.getElementById('slot-section').classList.remove('shake');
+
+      var btn = document.getElementById('wa-btn');
+      btn.classList.add('ready');
+
+      var msg = 'Hola, acabo de ver la presentación de Evolucione 🎯\n\n'
+              + 'Quiero agendar mi videollamada gratuita de 50 minutos con un especialista educativo.\n\n'
+              + 'Mi disponibilidad preferida es: *' + slot + '*\n\n'
+              + '¿Tienen espacio disponible en ese horario?';
+      btn.href = 'https://wa.me/523311471448?text=' + encodeURIComponent(msg);
+    }
+
+    /* Validar que se eligió horario antes de abrir WA */
+    document.getElementById('wa-btn').addEventListener('click', function(e) {
+      if (!selectedSlot) {
+        e.preventDefault();
+        var sec = document.getElementById('slot-section');
+        var err = document.getElementById('slot-error');
+        err.style.display = 'block';
+        sec.classList.remove('shake');
+        void sec.offsetWidth;
+        sec.classList.add('shake');
+        sec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
   </script>
 
 </body>
