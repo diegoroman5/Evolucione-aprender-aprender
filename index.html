@@ -113,6 +113,21 @@
       border: 0;
     }
 
+    /* ── YouTube overlay blockers ── */
+    .yt-shield {
+      position: absolute;
+      z-index: 4;
+      background: transparent;
+      pointer-events: all;
+      cursor: default;
+    }
+    /* Barra superior — bloquea título y "Más videos" */
+    .yt-shield--top   { top: 0;  left: 0; right: 0; height: 46px; }
+    /* Logo YouTube esquina inferior-derecha */
+    .yt-shield--logo  { bottom: 38px; right: 0; width: 140px; height: 44px; }
+    /* Botón "Más videos" esquina inferior-izquierda */
+    .yt-shield--extra { bottom: 38px; left: 0;  width: 160px; height: 44px; }
+
     .video-hint {
       text-align: center;
       margin-top: 14px;
@@ -197,7 +212,13 @@
       transition: transform .5s cubic-bezier(0.32, 0.72, 0, 1);
       max-height: 92vh;
       overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
+    /* Alinear contenido interno al centro */
+    .anuncio-panel > * { width: 100%; }
+    .anuncio-panel .anuncio-tag { width: auto; align-self: flex-start; }
     .anuncio-panel.show { transform: translateY(0); }
 
     .anuncio-tag {
@@ -266,8 +287,9 @@
 
     /* ── SLOT SELECTOR ── */
     .slot-section {
-      margin-bottom: 24px;
+      margin: 0 auto 24px;
       max-width: 460px;
+      width: 100%;
     }
     .slot-section__label {
       font-size: 15px;
@@ -339,6 +361,7 @@
     .anuncio-cta-wrap {
       display: flex; flex-direction: column; align-items: center; gap: 10px;
       width: 100%; max-width: 460px;
+      margin: 0 auto;
     }
     .btn-wa-vsl {
       display: inline-flex; align-items: center; justify-content: center;
@@ -374,9 +397,24 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 640px) {
-      .hero-text { padding: 28px 20px 18px; }
-      .video-section { padding: 6px 16px 32px; }
-      .anuncio-panel { padding: 28px 20px 36px; border-radius: 18px 18px 0 0; }
+      .hero-text          { padding: 24px 16px 16px; }
+      .hero-text h1       { font-size: clamp(20px, 5.5vw, 28px); }
+      .video-section      { padding: 6px 12px 28px; }
+      .anuncio-panel      { padding: 24px 16px 32px; border-radius: 18px 18px 0 0; }
+      .anuncio-titulo     { font-size: clamp(18px, 5vw, 24px); }
+      .anuncio-sub        { font-size: 13px; margin-bottom: 20px; }
+      .anuncio-cards      { gap: 8px; margin-bottom: 20px; }
+      .anuncio-card       { padding: 14px 12px; }
+      .anuncio-card h3    { font-size: 13px; }
+      .anuncio-card p     { font-size: 12px; }
+      .slot-section__label{ font-size: 14px; }
+      .slot-btn           { font-size: 14px; padding: 13px 16px; }
+      .btn-wa-vsl         { font-size: 15px; padding: 16px 20px; }
+      .anuncio-trust      { gap: 8px; font-size: 11px; }
+    }
+    @media (max-width: 400px) {
+      .hero-text h1   { font-size: 19px; }
+      .anuncio-titulo { font-size: 17px; }
     }
   </style>
 </head>
@@ -390,7 +428,7 @@
   <!-- HERO TEXT -->
   <div class="hero-text">
     <div class="eyebrow">Para papás que ya lo intentaron todo</div>
-    <h1>Tu hijo no necesita más clases.<br>Necesita aprender a aprender.</h1>
+    <h1>Tu hijo no necesita más clases.<br>Necesita <span style="color:var(--rosa)">aprender a aprender.</span></h1>
     <p>Este video explica por qué — y cómo Evolucione es la solución que llevas tiempo buscando.</p>
   </div>
 
@@ -401,6 +439,9 @@
     </div>
     <div class="video-frame">
       <div id="youtube-player"></div>
+      <div class="yt-shield yt-shield--top"></div>
+      <div class="yt-shield yt-shield--logo"></div>
+      <div class="yt-shield yt-shield--extra"></div>
     </div>
     <p class="video-hint">
       <span class="dot"></span>
