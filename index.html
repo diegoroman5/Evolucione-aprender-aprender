@@ -12,16 +12,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #0F172A;
-      --bg-card:  rgba(255,255,255,0.05);
-      --borde:    rgba(255,255,255,0.08);
-      --violeta:  #651FFF;
+      --bg:         #0F172A;
+      --bg-card:    rgba(255,255,255,0.05);
+      --borde:      rgba(255,255,255,0.08);
+      --violeta:    #651FFF;
       --violeta-lt: #A78BFA;
-      --rosa:     #FF0C99;
-      --cian:     #15FFFF;
-      --wa:       #25D366;
-      --texto:    #F8FAFC;
-      --suave:    rgba(248,250,252,0.60);
+      --rosa:       #FF0C99;
+      --cian:       #15FFFF;
+      --wa:         #25D366;
+      --texto:      #F8FAFC;
+      --suave:      rgba(248,250,252,0.60);
     }
 
     html, body {
@@ -123,9 +123,43 @@
       justify-content: center;
       gap: 6px;
     }
-    .video-hint svg { flex-shrink: 0; }
-    .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--rosa); animation: pulse 1.6s ease-in-out infinite; }
-    @keyframes pulse { 0%,100%{ opacity:.4; transform:scale(1); } 50%{ opacity:1; transform:scale(1.3); } }
+    .dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--rosa);
+      animation: pulse 1.6s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse {
+      0%,100%{ opacity:.4; transform:scale(1); }
+      50%{ opacity:1; transform:scale(1.3); }
+    }
+
+    /* ── SEEK-BLOCK TOAST ── */
+    #seek-toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-80px);
+      background: rgba(255,12,153,0.18);
+      border: 1px solid rgba(255,12,153,0.40);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 999px;
+      z-index: 200;
+      transition: transform .3s cubic-bezier(0.34,1.56,0.64,1), opacity .3s;
+      opacity: 0;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+      white-space: nowrap;
+    }
+    #seek-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
 
     /* ── ANNOUNCEMENT OVERLAY ── */
     #anuncio {
@@ -135,7 +169,6 @@
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      padding: 0;
       pointer-events: none;
       opacity: 0;
       transition: opacity .4s ease;
@@ -144,15 +177,13 @@
       pointer-events: all;
       opacity: 1;
     }
-
     .anuncio-backdrop {
       position: absolute;
       inset: 0;
-      background: rgba(5,8,20,0.72);
+      background: rgba(5,8,20,0.75);
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
     }
-
     .anuncio-panel {
       position: relative;
       z-index: 1;
@@ -187,15 +218,13 @@
     .anuncio-tag .dot-cian {
       width: 6px; height: 6px; border-radius: 50%; background: var(--cian);
     }
-
     .anuncio-titulo {
-      font-size: clamp(20px, 3.5vw, 30px);
+      font-size: clamp(20px, 3.5vw, 28px);
       font-weight: 800;
-      line-height: 1.15;
+      line-height: 1.2;
       margin-bottom: 8px;
     }
     .anuncio-titulo span { color: var(--violeta-lt); }
-
     .anuncio-sub {
       font-size: 14px;
       color: var(--suave);
@@ -214,7 +243,6 @@
     @media(max-width: 580px) {
       .anuncio-cards { grid-template-columns: 1fr; gap: 10px; }
     }
-
     .anuncio-card {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
@@ -225,49 +253,37 @@
       width: 36px; height: 36px;
       background: rgba(101,31,255,0.18);
       border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       color: var(--violeta-lt);
       margin-bottom: 12px;
-      flex-shrink: 0;
     }
     .anuncio-card h3 {
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 14px; font-weight: 700;
       color: var(--violeta-lt);
-      margin-bottom: 6px;
-      line-height: 1.3;
+      margin-bottom: 6px; line-height: 1.3;
     }
-    .anuncio-card p {
-      font-size: 13px;
-      color: var(--suave);
-      line-height: 1.55;
-    }
+    .anuncio-card p { font-size: 13px; color: var(--suave); line-height: 1.55; }
 
     /* CTA */
     .anuncio-cta-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
     }
     .btn-wa-vsl {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      display: inline-flex; align-items: center; justify-content: center;
       gap: 10px;
       background: var(--wa);
       color: #fff;
-      font-size: clamp(15px, 2vw, 17px);
+      font-size: clamp(14px, 2vw, 16px);
       font-weight: 800;
       text-decoration: none;
       border-radius: 999px;
-      padding: 18px 32px;
+      padding: 18px 28px;
       width: 100%;
-      max-width: 480px;
+      max-width: 520px;
       box-shadow: 0 8px 32px rgba(37,211,102,0.35);
       transition: transform .15s, box-shadow .15s;
+      text-align: center;
+      line-height: 1.3;
     }
     .btn-wa-vsl:hover {
       transform: translateY(-2px);
@@ -276,13 +292,9 @@
     .btn-wa-vsl:active { transform: translateY(0); }
 
     .anuncio-trust {
-      font-size: 12px;
-      color: var(--suave);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
+      font-size: 12px; color: var(--suave);
+      display: flex; align-items: center; gap: 12px;
+      flex-wrap: wrap; justify-content: center;
     }
     .anuncio-trust span { display: flex; align-items: center; gap: 4px; }
 
@@ -318,13 +330,16 @@
     </div>
     <p class="video-hint">
       <span class="dot"></span>
-      Mira el video completo — al terminar aparece el siguiente paso
+      Hay un mensaje importante esperándote en el video
     </p>
   </div>
 
-  <!-- ANNOUNCEMENT (aparece al terminar el video) -->
+  <!-- TOAST: intento de adelantar -->
+  <div id="seek-toast">⚠️ Este video no se puede adelantar</div>
+
+  <!-- ANNOUNCEMENT (aparece a los 2:47) -->
   <div id="anuncio">
-    <div class="anuncio-backdrop" id="backdrop"></div>
+    <div class="anuncio-backdrop"></div>
     <div class="anuncio-panel" id="anuncio-panel">
 
       <div class="anuncio-tag">
@@ -333,8 +348,7 @@
       </div>
 
       <h2 class="anuncio-titulo">
-        Una videollamada gratuita<br>
-        de <span>30 minutos</span> con un especialista educativo
+        Una videollamada gratuita de <span>50 minutos</span><br>con un especialista educativo
       </h2>
       <p class="anuncio-sub">
         Sin compromiso. El especialista analiza la situación de tu hijo y te dice con honestidad si el programa es lo que necesita.
@@ -376,12 +390,12 @@
 
       <div class="anuncio-cta-wrap">
         <a class="btn-wa-vsl"
-           href="https://wa.me/523311471448?text=Ya+vi+el+video+de+Evolucione+y+quiero+agendar+mi+asesor%C3%ADa+gratuita"
+           href="https://wa.me/523311471448?text=Quiero+agendar+mi+videollamada+gratuita+de+50+minutos+con+un+especialista+educativo+de+Evolucione"
            target="_blank" rel="noopener">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
           </svg>
-          Ya vi el video — quiero agendar mi asesoría
+          Quiero agendar mi videollamada gratuita de 50 minutos con un especialista educativo
         </a>
         <div class="anuncio-trust">
           <span>
@@ -394,81 +408,111 @@
           </span>
           <span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="color:var(--cian)"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
-            Solo 30 minutos
+            50 minutos
           </span>
         </div>
       </div>
 
-    </div><!-- /panel -->
-  </div><!-- /anuncio -->
+    </div>
+  </div>
 
 
-  <!-- YouTube IFrame API -->
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
     var player;
-    var progressInterval;
-    var VIDEO_ID = '6oMHzv8ip-I';
+    var trackInterval;
+    var lastTime      = 0;   // último segundo válido (para anti-seek)
+    var popupShown    = false;
+    var POPUP_AT      = 167; // 2 min 47 seg
+    var toastTimer;
 
+    /* ── Inicializar player ── */
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('youtube-player', {
-        videoId: VIDEO_ID,
+        videoId: '6oMHzv8ip-I',
         playerVars: {
-          rel: 0,
+          rel:            0,
           modestbranding: 1,
-          showinfo: 0,
           iv_load_policy: 3,
-          color: 'white'
+          color:          'white',
+          controls:       1,   // ✓ play, volumen, pantalla completa
+          disablekb:      1    // ✗ teclado (evita flechas para adelantar)
         },
         events: {
+          onReady:       onPlayerReady,
           onStateChange: onPlayerStateChange
         }
       });
     }
 
+    function onPlayerReady() {
+      // Nada especial al cargar
+    }
+
     function onPlayerStateChange(event) {
       if (event.data === YT.PlayerState.PLAYING) {
-        clearInterval(progressInterval);
-        progressInterval = setInterval(updateProgress, 800);
-      } else if (event.data === YT.PlayerState.PAUSED) {
-        clearInterval(progressInterval);
-      } else if (event.data === YT.PlayerState.ENDED) {
-        clearInterval(progressInterval);
-        document.getElementById('progress-bar').style.width = '100%';
-        setTimeout(showAnnouncement, 600);
+        clearInterval(trackInterval);
+        trackInterval = setInterval(trackVideo, 500);
+      } else if (event.data === YT.PlayerState.PAUSED ||
+                 event.data === YT.PlayerState.ENDED) {
+        clearInterval(trackInterval);
       }
     }
 
-    function updateProgress() {
+    /* ── Loop principal: anti-seek + progress bar + popup ── */
+    function trackVideo() {
       try {
         var current  = player.getCurrentTime();
         var duration = player.getDuration();
+
+        /* ── Anti-seek: bloquear adelanto ──────────────────────
+           Si el usuario arrastró la barra más de 2 s hacia adelante,
+           lo regresamos al último punto permitido.
+           Retroceder sí está permitido (current < lastTime).        */
+        if (current > lastTime + 2) {
+          player.seekTo(lastTime, true);
+          showToast();
+          return; // salir para no actualizar lastTime
+        }
+        lastTime = current;
+
+        /* ── Barra de progreso ── */
         if (duration > 0) {
-          var pct = Math.min((current / duration) * 100, 99);
+          var pct = Math.min((current / duration) * 100, 99.5);
           document.getElementById('progress-bar').style.width = pct + '%';
         }
+
+        /* ── Popup a los 2:47 ── */
+        if (!popupShown && current >= POPUP_AT) {
+          popupShown = true;
+          player.pauseVideo();
+          clearInterval(trackInterval);
+          document.getElementById('progress-bar').style.width = '100%';
+          setTimeout(showAnnouncement, 400);
+        }
+
       } catch(e) {}
     }
 
+    /* ── Toast "no puedes adelantar" ── */
+    function showToast() {
+      var t = document.getElementById('seek-toast');
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function() { t.classList.remove('show'); }, 2200);
+    }
+
+    /* ── Mostrar panel de anuncio ── */
     function showAnnouncement() {
       var anuncio = document.getElementById('anuncio');
       var panel   = document.getElementById('anuncio-panel');
       anuncio.classList.add('visible');
-      // Small delay so the opacity transition starts before the slide
       requestAnimationFrame(function() {
         requestAnimationFrame(function() {
           panel.classList.add('show');
         });
       });
     }
-
-    // Allow closing if clicking backdrop (optional UX)
-    document.getElementById('backdrop').addEventListener('click', function() {
-      // Don't close — user must click the CTA button
-      // (remove comment below if you want to allow closing)
-      // document.getElementById('anuncio').classList.remove('visible');
-      // document.getElementById('anuncio-panel').classList.remove('show');
-    });
   </script>
 
 </body>
